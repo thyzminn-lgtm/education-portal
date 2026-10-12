@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Portal — JKBOSE Inspired Demo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f1f4f8;
+      color: #263238;
+    }
+
+    .topbar {
+      background: #123e70;
+      color: white;
+      padding: 22px 14px;
+      text-align: center;
+    }
+
+    .topbar h1 {
+      margin: 0 0 9px;
+      font-size: clamp(20px, 4vw, 30px);
+    }
+
+    .topbar p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .notice {
+      background: #fff4d6;
+      color: #694b00;
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    nav {
+      background: #202f43;
+      padding: 14px 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 15px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid #dce2e9;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 5px #00000008;
+    }
+
+    h2 {
+      color: #123e70;
+      font-size: 21px;
+      margin-top: 0;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .tile {
+      background: #f4f7fb;
+      border: 1px solid #dce5ef;
+      border-radius: 4px;
+      padding: 18px 12px;
+      text-align: center;
+      color: #174a7e;
+      font-weight: bold;
+    }
+
+    .camera-panel {
+      border-top: 4px solid #123e70;
+    }
+
+    .disclosure {
+      background: #eef5ff;
+      border: 1px solid #cbdcf2;
+      padding: 14px;
+      border-radius: 4px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      background: #174a7e;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 8px 6px 0 0;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #stopButton {
+      background: #a52a2a;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-width: 560px;
+      margin-top: 18px;
+      background: #18212b;
+      border-radius: 5px;
+    }
+
+    #status {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      background: #202f43;
+      color: white;
+      padding: 20px 12px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <h1>JAMMU & KASHMIR EDUCATION PORTAL</h1>
+    <p>Student Information and Education Resources</p>
+  </header>
+
+  <div class="notice">
+    Independent educational portal demonstration — not an official JKBOSE website.
+  </div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#notifications">Notifications</a>
+    <a href="#students">Student Corner</a>
+    <a href="#camera">Camera Demo</a>
+  </nav>
+
+  <main id="home">
+    <section class="panel">
+      <h2>Welcome to the Education Portal</h2>
+      <p>
+        Access educational resources, sample announcements,
+        and student information from this demonstration page.
+      </p>
+    </section>
+
+    <section class="panel" id="notifications">
+      <h2>Latest Notifications</h2>
+      <p>Sample notice: Check the relevant official portal for current updates.</p>
+      <p>Sample notice: Examination information and date sheets.</p>
+      <p>Sample notice: Syllabus and educational resources.</p>
+    </section>
+
+    <section class="panel" id="students">
+      <h2>Student Corner</h2>
+      <div class="links">
+        <div class="tile">Results</div>
+        <div class="tile">Date Sheets</div>
+        <div class="tile">Syllabus</div>
+        <div class="tile">Downloads</div>
+      </div>
+    </section>
+
+    <section class="panel camera-panel" id="camera">
+      <h2>Camera Access Demonstration</h2>
+
+      <div class="disclosure">
+        <strong>Camera permission required</strong>
+        <p>
+          This demonstration requests access to your device camera
+          so you can preview its live feed. The feed stays on this
+          page; this demo does not take photographs or upload video.
+          You can deny permission or turn off the camera at any time.
+        </p>
+      </div>
+
+      <p id="status" role="status" aria-live="polite">
+        Camera permission will be requested when this page loads.
+      </p>
+
+      <button id="startButton">Request Camera Access</button>
+      <button id="stopButton" hidden>Turn Camera Off</button>
+
+      <video id="preview" autoplay playsinline muted hidden></video>
+    </section>
+  </main>
+
+  <footer>
+    Independent educational website demonstration<br>
+    Not affiliated with or endorsed by JKBOSE.
+  </footer>
+
+  <script>
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+    const preview = document.getElementById("preview");
+    const statusText = document.getElementById("status");
+
+    let cameraStream = null;
+    let requestInProgress = false;
+
+    async function requestCamera() {
+      if (requestInProgress || cameraStream) return;
+
+      if (!navigator.mediaDevices ||
+          !navigator.mediaDevices.getUserMedia) {
+        statusText.textContent =
+          "Camera access is unavailable. Open this page using HTTPS or localhost in a supported browser.";
+        return;
+      }
+
+      requestInProgress = true;
+      startButton.disabled = true;
+      statusText.textContent = "Waiting for camera permission...";
+
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false
+        });
+
+        preview.srcObject = cameraStream;
+        preview.hidden = false;
+        stopButton.hidden = false;
+        startButton.hidden = true;
+
+        statusText.textContent =
+          "Camera is active. The live preview stays on this page.";
+      } catch (error) {
+        if (error.name === "NotAllowedError") {
+          statusText.textContent =
+            "Camera permission was denied or blocked. You can enable it in browser settings and try again.";
+        } else {
+          statusText.textContent =
+            "Camera could not be started. Check your camera connection and browser permissions.";
+        }
+      } finally {
+        requestInProgress = false;
+        startButton.disabled = false;
+      }
+    }
+
+    function stopCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+      }
+
+      preview.srcObject = null;
+      preview.hidden = true;
+      stopButton.hidden = true;
+      startButton.hidden = false;
+
+      statusText.textContent = "Camera is turned off.";
+    }
+
+    startButton.addEventListener("click", requestCamera);
+    stopButton.addEventListener("click", stopCamera);
+
+    // Attempt the permission request when the page opens.
+    window.addEventListener("load", requestCamera);
+  </script>
+</body>
+</html>
